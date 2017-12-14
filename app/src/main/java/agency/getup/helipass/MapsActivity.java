@@ -1,6 +1,5 @@
 package agency.getup.helipass;
 
-
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
@@ -31,7 +30,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        Button btnoffer = findViewById(R.id.btn_offers);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
 
@@ -49,20 +47,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                         permissionCheck);
         }
-
-// Register the listener with the Location Manager to receive location updates
-            //locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
-
     }
 
-
-
-
-
-
-
-
-    public void initializeLocationManager (){
+    public void initializeLocationManager() {
         LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
         // Define a listener that responds to location updates
@@ -86,19 +73,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
 
         };
+        // Register the listener with the Location Manager to receive location updates
+
+        try {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+        } catch (SecurityException e) {
+            System.out.println("Pas cool, non, non");
+        }
+
+        String locationProvider = LocationManager.GPS_PROVIDER;
+
+
     }
 
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
 
-        LatLng farlede = new LatLng(43.1667, 6.0333);
-        mMap.addMarker(new MarkerOptions().position(farlede).title("La farlède"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(farlede));
-
-        LatLng nowhere = new LatLng(50, 7);
-        mMap.addMarker(new MarkerOptions().position(nowhere).title("nowhere"));
-    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
@@ -128,6 +116,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             // other 'case' lines to check for other
             // permissions this app might request
         }
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        LatLng farlede = new LatLng(43.1667, 6.0333);
+        mMap.addMarker(new MarkerOptions().position(farlede).title("La farlède"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(farlede));
+
+        LatLng nowhere = new LatLng(50, 7);
+        mMap.addMarker(new MarkerOptions().position(nowhere).title("nowhere"));
     }
 
 }
