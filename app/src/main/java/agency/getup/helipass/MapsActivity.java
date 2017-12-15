@@ -14,7 +14,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.Button;
 
-
+import com.google.gson.Gson;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -36,6 +36,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         checkLocationPermission();
     }
+
+    String data = "";
+
+   // Gson gson = new Gson();
+    //Offers offer = gson.fromJson(data, Offers.class);
+
+
 
 
     public boolean checkLocationPermission() {

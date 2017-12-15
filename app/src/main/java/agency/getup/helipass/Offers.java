@@ -8,32 +8,63 @@ public class Offers {
 
         private int id;
 
-        private float price;
+        private double price;
 
         private String name;
 
-        private float latitude;
+        private double latitude;
 
-        private float longitude;
+        private double longitude;
 
 
         public int getId() {
             return id;
         }
 
-        public float getPrice() {
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+
+        public double getPrice() {
             return price;
         }
+
+
+        public void setPrice(double price) {
+            this.price = price;
+        }
+
 
         public String getName() {
             return name;
         }
 
-        public float getLatitude() {
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+
+        public double getLatitude() {
             return latitude;
         }
 
-        public float getLongitude() {
+
+        public void setLatitude(double latitude) {
+            this.latitude = latitude;
+        }
+
+
+        public double getLongitude() {
             return longitude;
         }
+
+
+        public void setLongitude(double longitude) {
+            this.longitude = longitude;
+        }
+
+
 }
