@@ -25,7 +25,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-
+    LocationManager locationManager;
+    LocationListener locationListener;
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
     @Override
@@ -66,9 +67,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     public void initializeLocationManager() {
-        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
-        LocationListener locationListener = new LocationListener() {
+        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+
+        locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
 
                 LatLng position_user = new LatLng(location.getLatitude(), location.getLongitude());
@@ -88,10 +90,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Register the listener with the Location Manager to receive location updates
 
         try {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+
         } catch (SecurityException e) {
+
             System.out.println("Pas cool, non, non");
+
         }
+
 
         String locationProvider = LocationManager.GPS_PROVIDER;
 
@@ -147,6 +153,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
 
+            locationManager.removeUpdates(locationListener);
 
         }
     }
