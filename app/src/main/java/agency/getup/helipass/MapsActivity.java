@@ -26,7 +26,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
 
-
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
     @Override
@@ -71,12 +70,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         LocationListener locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
-                System.out.print(location.getLatitude());
 
                 LatLng position_user = new LatLng(location.getLatitude(), location.getLongitude());
 
-                // Called when a new location is found by the network location provider.
-                //makeUseOfNewLocation(location);
             }
 
             public void onStatusChanged(String provider, int status, Bundle extras) {
