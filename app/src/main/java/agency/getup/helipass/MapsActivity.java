@@ -75,6 +75,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 LatLng position_user = new LatLng(location.getLatitude(), location.getLongitude());
 
+                mMap.addMarker(new MarkerOptions().position(position_user).title("User Position"));
+
             }
 
             public void onStatusChanged(String provider, int status, Bundle extras) {
@@ -91,6 +93,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         try {
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                    .findFragmentById(R.id.map);
+            mapFragment.getMapAsync(this);
 
         } catch (SecurityException e) {
 
@@ -160,10 +165,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-        LatLng farlede = new LatLng(43.1667, 6.0333);
-        mMap.addMarker(new MarkerOptions().position(farlede).title("La farlède"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(farlede));
 
         LatLng nowhere = new LatLng(50, 7);
         mMap.addMarker(new MarkerOptions().position(nowhere).title("nowhere"));
