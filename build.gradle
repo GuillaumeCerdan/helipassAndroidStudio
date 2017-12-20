@@ -27,4 +27,5 @@ allprojects {
 dependencies {
     implementation files('jackson-core-2.9.3.jar')
     implementation files('jackson-databind-2.9.3.jar')
+    implementation files('jackson-annotations-2.0.1.jar')
 }
