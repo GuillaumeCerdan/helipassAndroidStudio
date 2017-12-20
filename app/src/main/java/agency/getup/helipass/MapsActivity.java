@@ -5,16 +5,13 @@ import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.*;
+import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 
-
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -22,8 +19,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.File;
 import java.io.IOException;
-import java.util.LinkedList;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback  {
@@ -32,7 +29,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     LocationManager locationManager;
     LocationListener locationListener;
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
-    int a = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +40,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public void deserializeJson() {
+        boolean isWorking = true;
         ObjectMapper mapper = new ObjectMapper();
         try {
-            Offer[] myObjects = mapper.readValue("../../offersHelico.json", Offer[].class);
+            //final File file = new File(Environment.getExternalStorageDirectory()
+            //        .getAbsolutePath(), "helico.json");
 
+            File file = new File("helico.json");
+            Offer[] myObjects = mapper.readValue(file, Offer[].class);
+            System.out.println(myObjects);
         } catch (IOException e) {
             e.printStackTrace();
+            isWorking = false;
         }
     }
 
